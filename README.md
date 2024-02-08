@@ -6,3 +6,8 @@
 
 ## Инфологическая модель базы данных.
 ![Infological_model](Infological_model.png)
+
+## Команда для запуска
+```python
+py app.py
+```
