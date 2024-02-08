@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Личный кабинет</title>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="container-centered">
+                <div class="mytable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    <div class="label_page">
+                                        Личный кабинет
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form action="{{ url_for('access_app.personal_account') }}" method="POST">
+                                <tr>
+                                    <td>Логин:</td>
+                                    <td>
+                                        {{ user_info['username']}}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Наименование:</td>
+                                    <td class="no-padding">
+                                        <input type="text" placeholder="Наименование" required minlength="5"
+                                            pattern="[A-Za-z ]*" value="{{ user_info['name'] or '' }}" name="name"
+                                            autocomplete="off">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Город:</td>
+                                    <td class="no-padding">
+                                        <input type="text" placeholder="Город" required minlength="3"
+                                            pattern="[A-Za-z ]*" value="{{ user_info['city'] or '' }}" name="city"
+                                            autocomplete="off">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Номер телефона:</td>
+                                    <td class="no-padding">
+                                        <input type="text" placeholder="Номер телефона" required
+                                            pattern="\d{3}-\d{3}-\d{4}" value="{{ user_info['sh_phone'] or '' }}"
+                                            name="phone" autocomplete="off">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="no-padding" colspan="2">
+                                        <input type="submit" value="Сохранить">
+                                    </td>
+                                </tr>
+                            </form>
+                            <tr>
+                                <td class="no-padding" colspan="2">
+                                    <form action="{{ url_for('index_handler') }}" method="GET">
+                                        <input type="submit" value="На главную">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="message">
+                {% if category == 'okay' %}
+                <div class="okay">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% if category == 'error' %}
+                <div class="error">
+                    {{ message }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/pageEventHandlers.js"></script>
+
+</html>

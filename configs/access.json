@@ -1,0 +1,34 @@
+{
+    "merchandiser": [
+        "search_by_material_handler",
+        "show_balance",
+        "show_invoice_by_month",
+        "queries_index",
+        "check_invoices"
+    ],
+    "manager": [
+        "reports_index",
+        "view_report",
+        "create_report",
+        "show_sales_handler",
+        "show_rating_handler",
+        "queries_index"
+    ],
+    "director": [
+        "reports_index",
+        "view_report"
+    ],
+    "logist": [
+        "show_history_by_shipper",
+        "search_shippers_by_city",
+        "queries_index"
+    ],
+    "external": [
+        "basket_index",
+        "show_basket_handler",
+        "delete_all_handler",
+        "delete_current_handler",
+        "create_order_handler",
+        "personal_account"
+    ]
+}

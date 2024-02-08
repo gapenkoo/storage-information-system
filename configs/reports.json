@@ -1,0 +1,14 @@
+[
+    {
+        "rep_name": "Отчет по заказам",
+        "rep_id": "1",
+        "procedure": "fill_reports_orders",
+        "sql_statement": "show_orders_report.sql"
+    },
+    {
+        "rep_name": "ПРИМЕР",
+        "rep_id": "2",
+        "procedure": "",
+        "sql_statement": ".sql"
+    }
+]

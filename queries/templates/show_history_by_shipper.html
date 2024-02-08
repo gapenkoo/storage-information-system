@@ -1,0 +1,44 @@
+{% extends "base_for_search.html" %}
+{% block title %}Поиск{% endblock %}
+{% block name_of_search %}Показать историю поставок{% endblock %}
+
+{% block form %}
+<form action="{{ url_for('queries_app.show_history_by_shipper') }}" method="POST">
+    <tr>
+        <td class="no-padding">
+            <input type="text" name="name" placeholder="Название" autocomplete="off" required minlength="3">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0;">
+            <input type="submit" value="Найти">
+        </td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block table_header %}
+<tr>
+    <th>Название поставщика</th>
+    <th>Город поставщика</th>
+    <th>Телефон поставщика</th>
+    <th>Название заготовки</th>
+    <th>Материал заготовки</th>
+    <th>Количество</th>
+    <th>Цена за единицу</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for item in result %}
+<tr>
+    <td>{{ item['sh_name'] }}</td>
+    <td>{{ item['sh_city'] }}</td>
+    <td>{{ item['sh_phone'] }}</td>
+    <td>{{ item['pr_name'] }}</td>
+    <td>{{ item['pr_material'] }}</td>
+    <td>{{ item['il_quantity'] }}₽</td>
+    <td>{{ item['il_price'] }}</td>
+</tr>
+{% endfor %}
+{% endblock %}

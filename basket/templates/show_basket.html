@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Просмотр накладной</title>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="container-centered">
+                <div class="mytable-for-results">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="7">
+                                    <div class="label_page">
+                                        Накладная
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Код заготовки</th>
+                                <th>Наименование</th>
+                                <th>Материал</th>
+                                <th>Вес</th>
+                                <th>Цена за единицу</th>
+                                <th>Количество</th>
+                                <th>Удаление</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in basket %}
+                            <tr>
+                                <td>
+                                    {{ row['code'] }}
+                                </td>
+                                <td>
+                                    {{ row['name'] }}
+                                </td>
+                                <td>
+                                    {{ row['material'] }}
+                                </td>
+                                <td>
+                                    {{ row['weight'] }} гр.
+                                </td>
+                                <td>
+                                    {{ row['price'] }}₽.
+                                </td>
+                                <td>
+                                    {{ row['quantity'] }} шт.
+                                </td>
+                                <form action="{{ url_for('basket_app.delete_current_handler') }}" method="POST">
+                                    <td class="no-padding" style="background-color: var(--register-color);">
+                                        <input type="submit" value="Удалить">
+                                        <input type="hidden" name="code" value="{{ row['code'] }}">
+                                    </td>
+                                </form>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>
+                                    Общая сумма накладной составила
+                                    <strong>{{cost}}₽</strong>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-padding" style="background-color: var(--register-color);">
+                                    <form action="{{ url_for('basket_app.create_order_handler') }}" method="POST">
+                                        <input type="submit" value="Сформировать накладную">
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-padding" style="background-color: var(--register-color);">
+                                    <form action="{{  url_for('basket_app.delete_all_handler') }}" method="POST">
+                                        <input type="submit" value="Очистить всю накладную">
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-padding" style="background-color: var(--register-color);">
+                                    <form action="{{ url_for('basket_app.basket_index') }}">
+                                        <input type="submit" value="Вернуться к выбору">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="message">
+                {% if category == 'okay' %}
+                <div class="okay">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% if category == 'error' %}
+                <div class="error">
+                    {{ message }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/pageEventHandlers.js"></script>
+
+</html>

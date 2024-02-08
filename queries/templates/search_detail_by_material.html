@@ -1,0 +1,43 @@
+{% extends "base_for_search.html" %}
+{% block title %}Показать детали{% endblock %}
+{% block name_of_search %}Показать детали определенного материала{% endblock %}
+
+{% block form %}
+<form action="{{ url_for('queries_app.search_by_material_handler') }}" method="POST">
+    <tr>
+        <td class="no-padding">
+            <input type="text" name="material" placeholder="Материал" autocomplete="off">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0;">
+            <input type="submit" value="Найти">
+        </td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block table_header %}
+<tr>
+    <th>Наименование</th>
+    <th>Вес</th>
+    <th>Материал</th>
+    <th>Цена</th>
+    <th>Количество на складе</th>
+    <th>Дата обновления</th>
+</tr>
+{% endblock %}
+
+
+{% block table_body %}
+{% for item in result %}
+<tr>
+    <td>{{ item['pr_name'] }}</td>
+    <td>{{ item['pr_weight'] }}</td>
+    <td>{{ item['pr_material'] }}</td>
+    <td>{{ item['st_price'] }}₽</td>
+    <td>{{ item['st_amount'] }} шт.</td>
+    <td>{{ item['st_date'] }}</td>
+</tr>
+{% endfor %}
+{% endblock %}
